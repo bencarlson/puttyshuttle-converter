@@ -1,2 +1,4 @@
-# putty-shuttle-converter
-Tool for converting SuperPutty exported XML to Shuttle .json format
+# puttyshuttle-converter
+Tool for converting SuperPutty exported Sessions.XML to a .shuttle.json file format
+
+
