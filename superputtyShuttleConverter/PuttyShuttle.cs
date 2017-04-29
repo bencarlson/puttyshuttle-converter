@@ -33,7 +33,7 @@ namespace superputtyShuttleConverter
     
                         s.sessionId = el.Attribute("SessionId").Value;
                         s.sessionName = el.Attribute("SessionName").Value;
-						s.imageKey = el.Attribute("imageKey").Value;
+						s.imageKey = el.Attribute("ImageKey").Value;
 						s.host = el.Attribute("Host").Value;
                         s.port = el.Attribute("Port").Value;
                         s.protocol = el.Attribute("Proto").Value;
@@ -43,7 +43,12 @@ namespace superputtyShuttleConverter
 
                         sessions.Add(s);
 
-                        Console.WriteLine(sessions);
+
+                    }
+
+                    foreach (Session session in sessions)
+                    {
+                        Console.WriteLine(session);
                     }
 
                     JArray array = new JArray();
@@ -71,6 +76,11 @@ namespace superputtyShuttleConverter
         public string puttySession;
         public string username;
         public string extraArgs;
+
+        public override string ToString()
+        {
+            return "\n" + sessionId + ": " + host + ":" + port + ", " + protocol;
+        }
     }
 
 
