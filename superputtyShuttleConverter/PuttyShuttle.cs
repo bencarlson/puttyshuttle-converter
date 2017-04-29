@@ -22,9 +22,9 @@ namespace superputtyShuttleConverter
                 String outfilePath = "shuttle.json";
                 if (args.Length > 1)
                 {
-					if (args[1].Trim().Equals(null))
+					if (!args[1].Trim().Equals(null))
 					{
-                        outfilePath = args[1]; 
+                        outfilePath = args[1].Trim(); 
                     }
                 }
                 IList sessions = new ArrayList();
@@ -35,7 +35,7 @@ namespace superputtyShuttleConverter
 	                XDocument doc = XDocument.Load(infilePath);
 
                     foreach(XElement el in doc.Root.Elements()) {
-                        Console.WriteLine("Processing {0}", el.Attribute("SessionId").Value);
+                        //Console.WriteLine("Processing {0}", el.Attribute("SessionId").Value);
 
                         Session s = new Session();
     
@@ -100,24 +100,20 @@ namespace superputtyShuttleConverter
         public static JArray GetHostsArray(IList sessions)
 		{
 			return new JArray(
-							  from ses in sessions.Cast<Session>()
-							  select new JObject(
+				from ses in sessions.Cast<Session>()
+				  select new JObject(
 
 
-													  new JProperty("cmd",
-																	ses.protocol.ToLower() + " " + ses.username
-																	+ "@" + ses.host
-
-
-
-														 ),
-													  new JProperty("inTerminal", "tab"),
-													  new JProperty("name", ses.sessionName),
-													  new JProperty("theme", "basic"),
-													  new JProperty("title", ses.sessionName)
-													 )
-												 )
-				;
+					  new JProperty("cmd",
+									ses.protocol.ToLower() + " " + ses.username
+									+ "@" + ses.host
+						 ),
+					  new JProperty("inTerminal", "tab"),
+					  new JProperty("name", ses.sessionName),
+					  new JProperty("theme", "basic"),
+					  new JProperty("title", ses.sessionName)
+					 )
+				 );
 		}
         
     }
