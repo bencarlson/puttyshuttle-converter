@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Xml;
+using System.Collections;
 using System.Xml.Linq;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 
 
@@ -18,29 +19,34 @@ namespace superputtyShuttleConverter
             if(args.Any()) {
 
 	            String infilePath = args[0];
+                ArrayList sessions = new ArrayList();
+
 
 	            if(File.Exists(infilePath)) {
 
 	                XDocument doc = XDocument.Load(infilePath);
 
                     foreach(XElement el in doc.Root.Elements()) {
-                        Console.WriteLine("Processing {1}", el.Name, el.Attribute("SessionId").Value);
+                        Console.WriteLine("Processing {0}", el.Attribute("SessionId").Value);
+
+                        Session s = new Session();
     
-                        String sessionId = el.Attribute("SessionId").Value;
-                        String sessionName = el.Attribute("SessionName").Value;
-                        //String imageKey = el.Attribute("imageKey").Value;
-                        String host = el.Attribute("Host").Value;
-                        String port = el.Attribute("Port").Value;
-                        String protocol = el.Attribute("Proto").Value;
-                        String puttySession = el.Attribute("PuttySession").Value;
-                        String username = el.Attribute("Username").Value;
-                        String extraArgs = el.Attribute("ExtraArgs").Value;
+                        s.sessionId = el.Attribute("SessionId").Value;
+                        s.sessionName = el.Attribute("SessionName").Value;
+						s.imageKey = el.Attribute("imageKey").Value;
+						s.host = el.Attribute("Host").Value;
+                        s.port = el.Attribute("Port").Value;
+                        s.protocol = el.Attribute("Proto").Value;
+                        s.puttySession = el.Attribute("PuttySession").Value;
+                        s.username = el.Attribute("Username").Value;
+                        s.extraArgs = el.Attribute("ExtraArgs").Value;
 
+                        sessions.Add(s);
 
-                    
-                    
-                    
+                        Console.WriteLine(sessions);
                     }
+
+                    JArray array = new JArray();
 
 
 	            } else {
@@ -54,6 +60,18 @@ namespace superputtyShuttleConverter
         }
     }
 
+    class Session 
+    {
+        public string sessionId;
+        public string sessionName;
+        public string imageKey;
+        public string host;
+        public string port;
+        public string protocol;
+        public string puttySession;
+        public string username;
+        public string extraArgs;
+    }
 
 
 }

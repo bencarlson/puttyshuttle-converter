@@ -7,5 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
   </ItemGroup>
 </Project>
