@@ -3,9 +3,9 @@ Tool for converting SuperPutty exported Sessions.XML to a .shuttle.json file for
 
 To build from the command line: 
 
-    mcs PuttyShuttle.cs -pkg:dotnet -r:/Volumes/Visual\ Studio\ for\ Mac\ Preview\ Installer/Install\ Visual\ Studio\ for\ Mac\ Preview.app/Contents/MonoBundle/Newtonsoft.Json.dll
+    $ mcs PuttyShuttle.cs -pkg:dotnet -r:/Volumes/Visual\ Studio\ for\ Mac\ Preview\ Installer/Install\ Visual\ Studio\ for\ Mac\ Preview.app/Contents/MonoBundle/Newtonsoft.Json.dll
 
 
 Usage: 
 
-    PuttyShuttle.json <Settings.XML export from SuperPutty> [optional <outputFile>]
+    $ mono PuttyShuttle.exe <Settings.XML export from SuperPutty> [optional <outputFile>]
