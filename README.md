@@ -9,3 +9,8 @@ To build from the command line:
 Usage: 
 
     $ mono PuttyShuttle.exe <Settings.XML export from SuperPutty> [optional <outputFile>]
+    
+Download the .exe file here: 
+
+https://github.com/bencarlson/puttyshuttle-converter/raw/master/superputtyShuttleConverter/PuttyShuttle.exe
+    
