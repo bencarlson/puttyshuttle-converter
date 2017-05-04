@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 
 
 
+
+
 namespace superputtyShuttleConverter
 {
     class PuttyShuttle
@@ -77,7 +79,7 @@ namespace superputtyShuttleConverter
                     );
 
 
-					Console.WriteLine(root.ToString());
+					//Console.WriteLine(root.ToString());
 
 
                     File.WriteAllText(outfilePath, root.ToString());
@@ -99,14 +101,26 @@ namespace superputtyShuttleConverter
 
         public static JArray GetHostsArray(IList sessions)
 		{
+
+
+            foreach (Session s in sessions.Cast<Session>())
+            {
+                String[] sub = s.sessionId.Split('/');
+                Console.WriteLine("->");
+                foreach (string su in sub)
+                    Console.Write(" " + su + " | ");
+                Console.WriteLine(s.sessionId);
+                s.path = sub;
+            }
+
 			return new JArray(
 				from ses in sessions.Cast<Session>()
 				  select new JObject(
 
-
+                      
 					  new JProperty("cmd",
-									ses.protocol.ToLower() + " " + ses.username
-									+ "@" + ses.host
+                                    ses.protocol.ToLower() + " " + (!(String.IsNullOrEmpty(ses.username.Trim())) ? ses.username
+                                                                    + "@" : "") + ses.host
 						 ),
 					  new JProperty("inTerminal", "tab"),
 					  new JProperty("name", ses.sessionName),
@@ -115,6 +129,7 @@ namespace superputtyShuttleConverter
 					 )
 				 );
 		}
+
         
     }
 
@@ -122,6 +137,7 @@ namespace superputtyShuttleConverter
 
     class Session 
     {
+        public String[] path;
         public string sessionId;
         public string sessionName;
         public string imageKey;
